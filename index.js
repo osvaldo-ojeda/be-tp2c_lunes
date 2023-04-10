@@ -1,5 +1,6 @@
-const saludar= require("./functions/saludar")
-
+const saludar = require("./functions/saludar");
+const { cosas } = require("./utils/cosas");
+const reduce= require("./functions/reduce")
 
 const datosPersonales = ["Lionel", "Messi", 33016244, ["hulk"]];
 
@@ -149,34 +150,14 @@ console.log("🚀 ------------------------------------------🚀");
 console.log("🚀 ~ file: index.js:134 ~ numeros:", numeros);
 console.log("🚀 ------------------------------------------🚀");
 
-saludar()
+// saludar();
 
 // console.log(module)
 
-
 // ----------
 
-// Reducir Ejercicio: resumir las instancias de cada uno de estos en un solo objeto
-// Ejemplo:
-// var mascotas = ['perro', 'gato', 'perro'];
-// Resultado: { 'perro': 2, 'gato': 1 }
 
-let cosas = [
-    "pelota",
-    "pelota",
-    "auto",
-    "silla",
-    "auto",
-    "kuka",
-    "compu",
-    "kuka",
-    "kuka",
-    "compu",
-    "pelota",
-    "moto",
-    "avion",
-    "avion",
-    "planta",
-    "planta",
-    "planta",
-  ];
+const objreduce = reduce(cosas);
+console.log("🚀 ----------------------------------------------🚀");
+console.log("🚀 objreduce:", objreduce);
+console.log("🚀 ----------------------------------------------🚀");
