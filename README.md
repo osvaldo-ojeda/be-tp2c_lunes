@@ -1,229 +1,236 @@
-# clase 3
+# clase 4
 
-## copiar un dato complejo 
+## Programación sincrónica y asincrónica
 
-Copiar un array o un objeto puede ser complicado, ya que se manejan diferente que los datos primitivos.
-Hacer esto puede generarnos un error si lo que queremos es mantener nuestro array u objeto original sin cambios.
+## Repaso
 
-Hacer 
+### Funciones en Javascript
 
-          let nombre="juan"
-          let nombre2=nombre 
+<image src="https://centrogeo.github.io/JSvis/img/js/funciones.png" alt="Descripción de la imagen">
 
-          //si modifico nombre2 nombre no se va a ver afectado 
 
+## funciones con retorno
 
-Esto es diferente de lo que ocurre con los objetos y arrays, que se pasan por referencia. Cuando se copia un objeto o un array a una nueva variable, ambas variables apuntan al mismo objeto/array en memoria. Por lo tanto, cualquier cambio que se haga en la nueva variable también se reflejará en el objeto/array original.
+<image src="https://centrogeo.github.io/JSvis/img/js/return2.png" alt="Descripción de la imagen">
 
-     const data=["Maria","Garcia"]
-     const newData=data
-     //al modificar newData tambien se modificara data
 
-## Podemos copiar un array con los siguientes metodos 
+## Declaración de funciones
 
-### Puedo copiar un array accediendo a sus indices
+Las funciones en Javascript tienen varias particularidades con respecto a otros lenguajes. Recordemos las formas para declarar una función:
 
-      const data=["Maria","Garcia"]
-      const newData=[data[0],data[1]]
-      //al modificar newData ya no se vera afectada data
+Estilo clásico:
 
-Entendiendo esto podriamos utilizar algun bucle para realizar las copias como un for, un foreach, hasta un map o un reduce, pero hay formas mas amigables.
+          function saludar(nombre){
+               console.log("Hola", nombre)
+          }
+          //llamada a la funcion 
+          saludar("Pedro")
 
-### slice
-slice() es un método que se utiliza en JavaScript para crear una copia superficial de un array o una parte del array, sin modificar el array original.
+## Declaracion de una funcion 
+ Al ser Javascript un lenguaje que no requiere especificar el tipo de dato de sus variables (tipado dinámico), tampoco es necesario especificar el tipo de dato que devuelven las funciones, ni el tipo de dato de los parámetros que éstas reciben.
 
-La sintaxis del método slice() es la siguiente:
+ ### Las funciones también son objetos
+En JavaScript las funciones se comportan como objetos: es posible asignar una declaración de función a una variable. 
 
-     array.slice([inicio], [fin])
-
-Donde:
-- array: El array original que se va a copiar.
-- inicio (opcional): El índice del array donde se va a comenzar a copiar los elementos. El valor predeterminado es 0, lo que significa que se copiará desde el primer elemento.
-- fin (opcional): El índice del array donde se va a detener la copia de elementos. El valor predeterminado es el final del array (el índice del último elemento).
-
-El método slice() devuelve un nuevo array que contiene los elementos copiados del array original. Este nuevo array se puede asignar a una variable o utilizar directamente en cualquier otro lugar donde se necesite un array.
-
-Aquí hay algunos ejemplos de cómo usar el método slice():
-
-     const numeros = [1, 2, 3, 4, 5];
-
-     const copiaNumeros = numeros.slice();
-
-     console.log(copiaNumeros); // [1, 2, 3, 4, 5]
-
-     const parteNumeros = numeros.slice(1, 4);
-
-     console.log(parteNumeros); // [2, 3, 4]
-
-En el primer ejemplo, se utiliza slice() para crear una copia del array numeros. La variable copiaNumeros apunta a un nuevo array que contiene los mismos elementos que numeros.
-
-En el segundo ejemplo, se utiliza slice() para crear una parte del array numeros. La variable parteNumeros apunta a un nuevo array que contiene los elementos del array original comenzando en el índice 1 y deteniéndose antes del índice 4.
-
-Para aprender mas consulta [sclice en mdn](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
-
-### spread operators
-El operador spread (...) es una característica de JavaScript que se utiliza para expandir un array o un objeto en lugares donde se esperan múltiples argumentos o elementos.
-
-En el caso de los arrays, el operador spread se utiliza para crear una copia superficial del array original y expandir sus elementos en una nueva lista. La sintaxis es la siguiente:
-
-     const arrayOriginal = [1, 2, 3];
-     const nuevaLista = [...arrayOriginal];
-     console.log(nuevaLista); // [1, 2, 3]
-
-En este ejemplo, el operador spread se utiliza para crear una copia superficial del array arrayOriginal y expandir sus elementos en una nueva lista llamada nuevaLista. La nueva lista es una copia del array original y no afecta el array original.
-
-El operador spread también se puede utilizar para combinar varios arrays en uno solo. La sintaxis es la siguiente:
-
-     const array1 = [1, 2];
-     const array2 = [3, 4];
-     const arrayCombinado = [...array1, ...array2];
-     console.log(arrayCombinado); // [1, 2, 3, 4]
-
-En este ejemplo, el operador spread se utiliza para combinar los elementos de los arrays array1 y array2 en un nuevo array llamado arrayCombinado. La nueva lista contiene los elementos de ambos arrays.
-
-En el caso de los objetos, el operador spread se utiliza para crear una copia superficial del objeto original y mezclarla con otros objetos. La sintaxis es la siguiente:
-
-     const objetoOriginal = { a: 1, b: 2 };
-     const nuevoObjeto = { ...objetoOriginal };
-     console.log(nuevoObjeto); // { a: 1, b: 2 }
-
-En este ejemplo, el operador spread se utiliza para crear una copia superficial del objeto objetoOriginal y mezclarla con un nuevo objeto llamado nuevoObjeto. El nuevo objeto contiene las propiedades del objeto original.
-
-El operador spread es una herramienta útil en JavaScript para trabajar con arrays y objetos de manera eficiente y elegante. 
-
-Aca hay mas info sobre [spread operators](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
-
-### Objet.assign
-Object.assign() es un método estático de JavaScript que se utiliza para copiar los valores de todas las propiedades enumerables de uno o más objetos fuente a un objeto destino. El método devuelve el objeto destino modificado.
-
-La sintaxis del método Object.assign() es la siguiente:
-
-     Object.assign(destino, ...fuentes)
-Donde:
-
-- destino: El objeto destino al que se copiarán las propiedades de los objetos fuente.
-- fuentes: Uno o más objetos fuente cuyas propiedades se copiarán al objeto destino.
-
-El método Object.assign() copia las propiedades enumerables de los objetos fuente al objeto destino, sobrescribiendo las propiedades existentes si tienen el mismo nombre. Si el objeto destino no existe, se crea uno nuevo.
-
-Aquí hay un ejemplo de cómo utilizar el método Object.assign():
-
-     const array=[1,2,3,4]
-     const newArray=Object.assign([],array)
-     // y con objetos
-     const objetoDestino = { a: 1 };
-     const objetoFuente1 = { b: 2 };
-     const objetoFuente2 = { c: 3 };
-
-     const resultado = Object.assign(objetoDestino, objetoFuente1, objetoFuente2);
-
-     console.log(resultado); // { a: 1, b: 2, c: 3 }
-     console.log(objetoDestino); // { a: 1, b: 2, c: 3 }
-
-
-En este ejemplo, se utiliza Object.assign() para copiar las propiedades de los objetos objetoFuente1 y objetoFuente2 al objeto objetoDestino. El método devuelve el objeto destino modificado, que contiene las propiedades de ambos objetos fuente.
-
-Es importante tener en cuenta que Object.assign() no copia las propiedades heredadas ni las propiedades no enumerables de los objetos fuente. Además, el método no se utiliza para crear una copia profunda de un objeto, sino solo una copia superficial.
-
-Mas sobre [Objet.assign](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
-
-
-### JSON.stringify() y JSON.parse()
-
-JSON.stringify() y JSON.parse() son dos métodos de JavaScript que se utilizan para convertir datos entre formato JSON y formato JavaScript.
-
-JSON.stringify() se utiliza para convertir un objeto JavaScript en una cadena de texto JSON. La sintaxis es la siguiente:
-
-     JSON.stringify(objeto[, replacer[, espacio]])
-Donde:
-
-- objeto: El objeto JavaScript que se va a convertir en formato JSON.
-- eplacer (opcional): Una función que se utiliza para transformar los valores y las propiedades del objeto antes de la serialización. También se puede utilizar un array para seleccionar las propiedades que se incluirán en la cadena de texto JSON.
-- espacio (opcional): Un valor numérico o una cadena de texto que se utiliza para agregar espacios en blanco a la salida con el fin de mejorar la legibilidad.
-Aquí hay un ejemplo de cómo utilizar JSON.stringify():
-
-          const objeto = { a: 1, b: 2 };
-          const cadenaJSON = JSON.stringify(objeto);
-
-          console.log(cadenaJSON); // {"a":1,"b":2}
-
-En este ejemplo, se utiliza JSON.stringify() para convertir el objeto objeto en una cadena de texto JSON. La cadena resultante se almacena en la variable cadenaJSON.
-
-JSON.parse() se utiliza para convertir una cadena de texto JSON en un objeto JavaScript. La sintaxis es la siguiente:
-
-     JSON.parse(cadena)
-Donde:
-
-- cadena: La cadena de texto JSON que se va a convertir en un objeto JavaScript.
-Aquí hay un ejemplo de cómo utilizar JSON.parse():
-
-          const cadenaJSON = '{"a":1,"b":2}';
-          const objeto = JSON.parse(cadenaJSON);
-
-          console.log(objeto); // { a: 1, b: 2 }
-En este ejemplo, se utiliza JSON.parse() para convertir la cadena de texto JSON cadenaJSON en un objeto JavaScript. El objeto resultante se almacena en la variable objeto.
-
-Es importante tener en cuenta que la cadena de texto JSON debe tener una sintaxis válida para poder ser convertida en un objeto JavaScript. Si la cadena no es válida, se producirá un error al utilizar JSON.parse().
-
-### structuredClone
-
-El método structuredClone() es una función que permite crear una copia profunda de un objeto en JavaScript. Esta función es parte de la especificación de Web Workers y se utiliza para transferir objetos entre hilos de ejecución. Aquí te muestro un ejemplo:
-
-     const obj1 = { a: 1, b: { c: 2 } };
-     const obj2 = structuredClone(obj1);
-     console.log(obj2); // { a: 1, b: { c: 2 } }
-En este ejemplo, utilizamos la función structuredClone() para crear una copia profunda del objeto obj1. Esto significa que también se copian las propiedades que son objetos anidados por referencia, creando nuevas instancias de esos objetos.
-
-Es importante tener en cuenta que structuredClone() no funciona con todos los tipos de objetos en JavaScript, y puede haber limitaciones en cuanto a la cantidad o el tamaño de los datos que se pueden clonar. Además, esta función no está disponible en todos los navegadores y entornos de JavaScript, por lo que es importante verificar su compatibilidad antes de utilizarla.
-
-Mas info sobre [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone)
-
-# module.export y require
-
-module.exports y require son dos características de Node.js que se utilizan para exportar e importar módulos en una aplicación Node.js.
-
-module.exports es una propiedad del objeto module que se utiliza para exportar un objeto, una función o una variable de un módulo. La sintaxis es la siguiente:
-
-     module.exports = objeto;
-Donde objeto puede ser cualquier objeto, función o variable que se desea exportar.
-
-Aquí hay un ejemplo de cómo utilizar module.exports para exportar una función desde un módulo:
-
-     // En el archivo modulo.js
-     function sumar(a, b) {
-     return a + b;
+     const saludar= function(nombre){
+          console.log("Hola", nombre)
      }
 
-     module.exports = sumar;
 
-Luego 
 
-     // En el archivo principal
-     const sumar = require('./modulo.js');
-     console.log(sumar(2, 3)); // 5
+La podemos ejecutar de la misma forma que una función clásica.
 
-En este ejemplo, se define una función sumar en el archivo modulo.js y se exporta utilizando module.exports. En el archivo principal, se utiliza require para importar la función sumar desde el módulo modulo.js y se llama a la función para sumar dos números.
+### Nueva declaración de funciones
+La nueva sintaxis consiste en declarar únicamente los parámetros, y luego conectarlos con el cuerpo de la función mediante el operador => (flecha gorda, o ‘fat arrow’ en inglés). Veamos un ejemplo:
 
-require es una función de Node.js que se utiliza para importar un módulo en una aplicación Node.js. La sintaxis es la siguiente:
+Nuevo estilo (simplificado):  
 
-     const objeto = require('nombreDelModulo');
-Donde nombreDelModulo es el nombre del módulo que se desea importar. Si el módulo es un archivo local, se debe especificar la ruta relativa o absoluta del archivo.
+     const saludar= (nombre)=>{
+          console.log("Hola", nombre)
+     }
 
-Aquí hay un ejemplo de cómo utilizar require para importar un objeto desde un módulo:
 
-     // En el archivo modulo.js
-     const objeto = {
-     a: 1,
-     b: 2
-     };
 
-     module.exports = objeto;
+Llamada a la función:  saludar("Pedro")  
 
-     // En el archivo principal
-     const objetoImportado = require('./modulo.js');
-     console.log(objetoImportado.a); // 1
-     console.log(objetoImportado.b); // 2
+### Funciones de un solo parámetro
 
-En este ejemplo, se define un objeto objeto en el archivo modulo.js y se exporta utilizando module.exports. En el archivo principal, se utiliza require para importar el objeto desde el módulo modulo.js y se accede a sus propiedades.
+En el caso de que la función reciba un solo parámetro, los paréntesis se vuelven opcionales, pudiendo escribir:
 
-Mas sobre [module.exports](https://www.freecodecamp.org/news/module-exports-how-to-export-in-node-js-and-javascript/)
+      const saludar= nombre=>{
+          console.log("Hola", nombre)
+          }
+
+
+
+
+La función se podrá usar de la misma manera que las anteriores
+
+### Funciones de una sola instrucción
+En el caso de que el cuerpo de la función conste de una única instrucción, las llaves se vuelven opcionales, el cuerpo se puede escribir en la misma línea de la declaración y el resultado de computar esa única línea se devuelve como resultado de la función, como si tuviera un “return” adelante. A esto se lo conoce como “return implícito”.
+
+     const saludar= nombre=> console.log("Hola", nombre)
+          
+
+En este caso la función devolvería “undefined” ya que console.log es de tipo void y por lo tanto no devuelve nada
+
+### Return implícito
+Un ejemplo igualmente trivial pero más ilustrativo de return implícito sería el siguiente:
+
+     const promediar=(a,b)=>(a+b)/2
+     const promedio=promediar(4,8)
+     console.log(promedio)//6
+
+## Callbacks
+Como hemos visto, en Javascript es posible asignar una función a una variable. Esto es porque internamente, las funciones también son objetos (y las variables, referencias a esos objetos). Es por esto que Javascript nos permite hacer que una función reciba como parámetro una referencia a otra función.
+
+     const ejecutarSaludo=fn=>fn()
+     const saludar=()=> console.log("Hola")
+     ejecutarSaludo(saludo)
+
+## Ejemplos
+Y como ya sabemos, donde puedo usar una variable puedo también usar directamente el contenido de esa variable. En el ejemplo, la función ‘ejecutar’ recibe una función anónima, y la ejecuta.
+
+     ejecutarSaludo(()=> console.log("Hola"))
+
+Esto también funciona con funciones anónimas con parámetros
+
+     const ejecutarSaludo=(nombre,fn)=>fn(nombre)
+     const saludar=(nombre)=> console.log("Hola", nombre)
+     ejecutarSaludo(saludo)
+
+
+- Un callback es una función que se envía como argumento a otra función.
+
+- La intención es que la función que hace de receptora ejecute la función que se le está pasando por parámetro.
+
+## Callbacks: Algunas convenciones
+- El callback siempre es el último parámetro.
+- El callback suele ser una función que recibe dos parámetros.
+- La función llama al callback al terminar de ejecutar todas sus operaciones.
+- Si la operación fue exitosa, la función llamará al callback pasando null como primer parámetro y si generó algún resultado este se pasará como segundo parámetro.
+- Si la operación resultó en un error, la función llamará al callback pasando el error obtenido como primer parámetro.
+
+## Callbacks anidados
+
+<image src="https://res.cloudinary.com/practicaldev/image/fetch/s--c0aEZX7m--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b8euo2n7twvgh3dbuatd.jpeg" alt="Descripción de la imagen">
+
+- Es un fragmento de código en el que una función llama a un callback, y este a otro callback, y este a otro, y así sucesivamente.
+- Son operaciones encadenadas, en serie.
+- Si el nivel de anidamiento es grande, se puede producir el llamado callback hell ó infierno de callbacks. También se conoce como pyramid of doom ó pirámide de la perdición.
+
+### ¡Atención!
+A este tipo de estructura de código se le ha denominado callbacks hell o pyramid of doom, ya que las funciones se van encadenando de forma que la indentación del código se vuelve bastante prominente y dificulta la comprensión del mismo.
+
+# Promesas
+- Una Promesa es un objeto que encapsula una operación, y que permite definir acciones a tomar luego de finalizada dicha operación, según el resultado de la misma. Para ello, permite asociar manejadores que actuarán sobre un eventual valor (resultado) en caso de éxito, o la razón de falla (error) en caso de una falla.
+- Al igual que con los callbacks, este mecanismo permite definir desde afuera de una función un bloque de código que se ejecutará dentro de esa función, dependiendo del resultado. A diferencia de los callbacks, en este caso se definirán dos manejadores en lugar de uno solo. Esto permite evitar callback hells como veremos más adelante.
+
+<image src="https://lenguajejs.com/javascript/asincronia/promesas/promises.png" alt="Descripción de la imagen">
+<image src="https://www.freecodecamp.org/news/content/images/2020/06/Ekran-Resmi-2020-06-06-12.21.27.png" alt="Descripción de la imagen">
+
+
+## crecion de una promesa
+
+          function miPromesa(parametro) {
+          return new Promise((resolve, reject) => {
+          if (parametro) {
+               resolve("La promesa se resolvió correctamente.");
+          } else {
+               reject("La promesa se rechazó debido al parámetro falso.");
+          }
+          });
+          }
+
+### uso de una promesa si sale bien 
+
+          miPromesa(true)
+          .then((respuesta) => console.log(respuesta))
+          .catch((error) => console.log(error));
+          
+          // La promesa se resolvió correctamente.
+### uso de una promesa si sale mal 
+
+          miPromesa(false)
+          .then((respuesta) => console.log(respuesta))
+          .catch((error) => console.log(error));
+
+          // La promesa se rechazó debido al parámetro falso..
+
+## Encadenamiento de promesas
+Una llamada a promise.then() devuelve otra promesa, para que podamos llamar al siguiente .then().
+
+      promesa1
+          .then((resultado1) => {
+          // Hacer algo con resultado1
+          return promesa2;
+          })
+          .then((resultado2) => {
+          // Hacer algo con resultado2
+          })
+          .catch((error) => {
+          // Manejar cualquier error
+          });
+## Sincronismo vs Asincronismo
+<image src="https://images.squarespace-cdn.com/content/v1/56cdb491a3360cdd18de5e16/1517393483507-RZWIJ31DBGTTZOC7ME4J/sync_async_es.png?format=1000w" alt="Descripción de la imagen">
+
+## Ejecución Sincrónica: Repasemos
+- Cuando escribimos más de una instrucción en un programa, esperamos que las instrucciones se ejecuten comenzando desde la primera línea, una por una, de arriba hacia abajo hasta llegar al final del bloque de código. 
+- Si una instrucción es una llamada a otra función, la ejecución se pausa y se procede a ejecutar esa función. 
+- Sólo una vez ejecutadas todas las instrucciones de esa función, el programa retomará con el flujo de instrucciones que venía ejecutando antes.
+
+### Ejemplo Ejecución Sincrónica
+
+function suma(a, b) {
+  console.log("Sumando...");
+  return a + b;
+}
+
+function resta(a, b) {
+  console.log("Restando...");
+  return a - b;
+}
+
+function multiplicacion(a, b) {
+  console.log("Multiplicando...");
+  return a * b;
+}
+
+function ejecucionSincronica() {
+  const resultadoSuma = suma(2, 3);
+  const resultadoResta = resta(resultadoSuma, 1);
+  const resultadoMultiplicacion = multiplicacion(resultadoResta, 5);
+  console.log(`El resultado final es ${resultadoMultiplicacion}`);
+}
+
+ejecucionSincronica();
+En este ejemplo, tenemos tres funciones que realizan diferentes operaciones matemáticas: suma, resta y multiplicacion. Cada función imprime un mensaje en la consola para indicar que se está realizando la operación correspondiente.
+
+Luego, tenemos una función llamada ejecucionSincronica que llama a estas tres funciones y utiliza los resultados de una función como entrada para la siguiente. En este caso, estamos sumando 2 y 3, restando 1 al resultado de la suma y multiplicando el resultado de la resta por 5.
+
+Al llamar a ejecucionSincronica, vemos que los mensajes de consola se imprimen en el orden esperado y que el resultado final se calcula correctamente, en un orden específico.
+
+- En todo momento, sólo se están ejecutando las instrucciones de una sola de las funciones a la vez. O sea, debe finalizar una función para poder continuar con la otra.
+
+- El fin de una función marca el inicio de la siguiente, y el fin de ésta, el inicio de la que le sigue, y así sucesivamente, describiendo una secuencia que ocurre en una única línea de tiempo.
+
+## Comportamiento de una función:Bloqueante vs no-bloqueante
+
+Cuando alguna de las instrucciones dentro de una función intente acceder a un recurso que se encuentre fuera del programa (por ejemplo, enviar un mensaje por la red, o leer un archivo del disco) nos encontraremos con dos maneras distintas de hacerlo: en forma bloqueante, o en forma no-bloqueante (blocking o non-blocking).
+
+## Operaciones no-bloqueantes
+
+- En la mayoría de los casos, precisamos que el programa ejecute todas sus operaciones en forma secuencial, y sólo comenzar una instrucción luego de haber terminado la anterior.
+- A las operaciones que obligan al programa a esperar a que se finalicen antes de pasar a ejecutar la siguiente instrucción se las conoce como bloqueantes. 
+- Este tipo de operaciones permiten que el programa se comporte de la manera más intuitiva.
+- Permiten la ejecución de una sola operación en simultáneo.
+- A este tipo de ejecución se la conoce como sincrónica. 
+
+## Concepto Ejecución Asincrónica
+
+- Para poder usar funciones que realicen operaciones no bloqueantes debemos aprender a usarlas adecuadamente, sin generar efectos adversos en forma accidental. 
+- Cuando el código que se ejecuta en forma sincrónica, establecer el orden de ejecución consiste en decidir qué instrucción escribir primero. 
+- Cuando se trata de ejecución asincrónica, sólo sabemos en qué orden comenzarán su ejecución las instrucciones, pero no sabemos en qué momento ni en qué orden terminarán de ejecutarse. 
+
+
+
