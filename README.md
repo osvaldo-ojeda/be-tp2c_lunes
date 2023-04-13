@@ -2,8 +2,6 @@
 
 ## Programación sincrónica y asincrónica
 
-## Repaso
-
 ### Funciones en Javascript
 
 <image src="https://centrogeo.github.io/JSvis/img/js/funciones.png" alt="Descripción de la imagen">
@@ -16,7 +14,7 @@
 
 ## Declaración de funciones
 
-Las funciones en Javascript tienen varias particularidades con respecto a otros lenguajes. Recordemos las formas para declarar una función:
+Con respecto a las funciones, Javascript tiene una serie de características únicas .  Recordamos los métodos para declarar una función:
 
 Estilo clásico:
 
@@ -27,10 +25,10 @@ Estilo clásico:
           saludar("Pedro")
 
 ## Declaracion de una funcion 
- Al ser Javascript un lenguaje que no requiere especificar el tipo de dato de sus variables (tipado dinámico), tampoco es necesario especificar el tipo de dato que devuelven las funciones, ni el tipo de dato de los parámetros que éstas reciben.
+JavaScript es un lenguaje con tipado dinámico, lo que significa que no es necesario especificar el tipo de dato de las variables en su declaración. Esto también se aplica a las funciones, ya que no es necesario especificar el tipo de dato que se devuelve ni el tipo de dato de los parámetros que se reciben.
 
  ### Las funciones también son objetos
-En JavaScript las funciones se comportan como objetos: es posible asignar una declaración de función a una variable. 
+En JavaScript, las funciones son tratadas como objetos y se les puede asignar una declaración de función a una variable. Por lo tanto, las funciones pueden ser utilizadas de la misma manera que cualquier otro objeto y pueden ser pasadas como argumentos a otras funciones o asignadas como valores a las propiedades de objetos.
 
      const saludar= function(nombre){
           console.log("Hola", nombre)
@@ -41,7 +39,7 @@ En JavaScript las funciones se comportan como objetos: es posible asignar una de
 La podemos ejecutar de la misma forma que una función clásica.
 
 ### Nueva declaración de funciones
-La nueva sintaxis consiste en declarar únicamente los parámetros, y luego conectarlos con el cuerpo de la función mediante el operador => (flecha gorda, o ‘fat arrow’ en inglés). Veamos un ejemplo:
+La sintaxis actual para declarar funciones en JavaScript permite declarar únicamente los parámetros y conectarlos con el cuerpo de la función usando el operador "=>" (conocido como flecha gorda o "fat arrow" en inglés).
 
 Nuevo estilo (simplificado):  
 
@@ -53,6 +51,9 @@ Nuevo estilo (simplificado):
 
 Llamada a la función:  saludar("Pedro")  
 
+En este ejemplo, la función "saludar" es declarada con un solo parámetro "nombre" y su cuerpo está conectado mediante el operador de flecha gorda. En este caso, la función simplemente imprime un saludo en la consola, pero podría realizar cualquier otra tarea que se desee.
+
+La nueva sintaxis simplificada hace que la declaración de funciones sea más concisa y legible, lo que la hace más fácil de entender para aquellos que no están familiarizados con la sintaxis tradicional de JavaScript. Además, también hace que sea más fácil escribir funciones que devuelven valores, ya que no es necesario usar la palabra clave "return" en este caso.
 ### Funciones de un solo parámetro
 
 En el caso de que la función reciba un solo parámetro, los paréntesis se vuelven opcionales, pudiendo escribir:
@@ -67,7 +68,9 @@ En el caso de que la función reciba un solo parámetro, los paréntesis se vuel
 La función se podrá usar de la misma manera que las anteriores
 
 ### Funciones de una sola instrucción
-En el caso de que el cuerpo de la función conste de una única instrucción, las llaves se vuelven opcionales, el cuerpo se puede escribir en la misma línea de la declaración y el resultado de computar esa única línea se devuelve como resultado de la función, como si tuviera un “return” adelante. A esto se lo conoce como “return implícito”.
+En JavaScript, si el cuerpo de una función consiste en una única instrucción, las llaves para delimitar el cuerpo de la función se vuelven opcionales. En su lugar, el cuerpo puede ser escrito en la misma línea de la declaración de la función y el resultado de la única línea de instrucción se devuelve automáticamente como resultado de la función, como si tuviera un "return" adelante.
+
+A esto se le conoce como "return implícito" y es una característica de la sintaxis simplificada de las funciones de flecha en JavaScript. Aquí te muestro un ejemplo:
 
      const saludar= nombre=> console.log("Hola", nombre)
           
@@ -75,14 +78,14 @@ En el caso de que el cuerpo de la función conste de una única instrucción, la
 En este caso la función devolvería “undefined” ya que console.log es de tipo void y por lo tanto no devuelve nada
 
 ### Return implícito
-Un ejemplo igualmente trivial pero más ilustrativo de return implícito sería el siguiente:
+Un ejemplo de return implícito sería el siguiente:
 
      const promediar=(a,b)=>(a+b)/2
      const promedio=promediar(4,8)
      console.log(promedio)//6
 
 ## Callbacks
-Como hemos visto, en Javascript es posible asignar una función a una variable. Esto es porque internamente, las funciones también son objetos (y las variables, referencias a esos objetos). Es por esto que Javascript nos permite hacer que una función reciba como parámetro una referencia a otra función.
+La capacidad de pasar funciones como parámetros a otras funciones se conoce como "Callbacks" y es una característica importante de JavaScript. Esto permite escribir código más genérico y reutilizable, ya que las funciones pueden ser diseñadas para trabajar con diferentes tipos de datos y comportamientos.
 
      const ejecutarSaludo=fn=>fn()
      const saludar=()=> console.log("Hola")
@@ -100,16 +103,20 @@ Esto también funciona con funciones anónimas con parámetros
      ejecutarSaludo(saludo)
 
 
-- Un callback es una función que se envía como argumento a otra función.
+- un callback es una función que se pasa como argumento a otra función.
 
-- La intención es que la función que hace de receptora ejecute la función que se le está pasando por parámetro.
+- La idea detrás de esto es que la función receptora (a la cual se le pasa el callback como argumento) pueda ejecutar la función que se le está pasando como parámetro en un momento específico. El objetivo principal de utilizar un callback es permitir que una función pueda ejecutarse después de que se haya completado una tarea asíncrona, como por ejemplo una solicitud a una API o una operación de lectura / escritura en un archivo.
 
-## Callbacks: Algunas convenciones
-- El callback siempre es el último parámetro.
-- El callback suele ser una función que recibe dos parámetros.
-- La función llama al callback al terminar de ejecutar todas sus operaciones.
-- Si la operación fue exitosa, la función llamará al callback pasando null como primer parámetro y si generó algún resultado este se pasará como segundo parámetro.
-- Si la operación resultó en un error, la función llamará al callback pasando el error obtenido como primer parámetro.
+## Algunas convenciones de los callbaks
+- En JavaScript, el callback se suele colocar como el último parámetro en una función que acepta un callback.
+
+- Normalmente, el callback es una función que acepta dos parámetros: un posible error (en caso de que haya ocurrido uno) y el resultado de la operación que se llevó a cabo.
+
+- La función que acepta el callback, generalmente llama a este callback una vez que ha terminado de ejecutar todas sus operaciones.
+
+- Si la operación fue exitosa, la función llamará al callback pasando null como primer parámetro y el resultado obtenido como segundo parámetro.
+
+- Si la operación resultó en un error, la función llamará al callback pasando el error obtenido como primer parámetro y un segundo parámetro que puede ser nulo o contener información adicional sobre el error.
 
 ## Callbacks anidados
 
@@ -123,8 +130,8 @@ Esto también funciona con funciones anónimas con parámetros
 A este tipo de estructura de código se le ha denominado callbacks hell o pyramid of doom, ya que las funciones se van encadenando de forma que la indentación del código se vuelve bastante prominente y dificulta la comprensión del mismo.
 
 # Promesas
-- Una Promesa es un objeto que encapsula una operación, y que permite definir acciones a tomar luego de finalizada dicha operación, según el resultado de la misma. Para ello, permite asociar manejadores que actuarán sobre un eventual valor (resultado) en caso de éxito, o la razón de falla (error) en caso de una falla.
-- Al igual que con los callbacks, este mecanismo permite definir desde afuera de una función un bloque de código que se ejecutará dentro de esa función, dependiendo del resultado. A diferencia de los callbacks, en este caso se definirán dos manejadores en lugar de uno solo. Esto permite evitar callback hells como veremos más adelante.
+- En JavaScript, una Promesa es un objeto que encapsula una operación asincrónica y permite definir acciones a tomar después de que se haya completado dicha operación, dependiendo del resultado de la misma. Para ello, se pueden asociar manejadores que actuarán sobre un posible valor (resultado) en caso de éxito, o la razón del fallo (error) en caso de una falla.
+- Al igual que con los callbacks, este mecanismo permite definir desde fuera de una función un bloque de código que se ejecutará dentro de esa función, pero a diferencia de los callbacks, en una Promesa se definen dos manejadores en lugar de uno solo. Esto permite evitar la complejidad de los callback hells, que se pueden producir cuando se anidan múltiples callbacks.
 
 <image src="https://lenguajejs.com/javascript/asincronia/promesas/promises.png" alt="Descripción de la imagen">
 <image src="https://www.freecodecamp.org/news/content/images/2020/06/Ekran-Resmi-2020-06-06-12.21.27.png" alt="Descripción de la imagen">
@@ -175,35 +182,36 @@ Una llamada a promise.then() devuelve otra promesa, para que podamos llamar al s
 <image src="https://images.squarespace-cdn.com/content/v1/56cdb491a3360cdd18de5e16/1517393483507-RZWIJ31DBGTTZOC7ME4J/sync_async_es.png?format=1000w" alt="Descripción de la imagen">
 
 ## Ejecución Sincrónica: Repasemos
-- Cuando escribimos más de una instrucción en un programa, esperamos que las instrucciones se ejecuten comenzando desde la primera línea, una por una, de arriba hacia abajo hasta llegar al final del bloque de código. 
-- Si una instrucción es una llamada a otra función, la ejecución se pausa y se procede a ejecutar esa función. 
-- Sólo una vez ejecutadas todas las instrucciones de esa función, el programa retomará con el flujo de instrucciones que venía ejecutando antes.
+Cuando escribimos un programa en JavaScript, esperamos que las instrucciones se ejecuten secuencialmente, es decir, comenzando desde la primera línea y avanzando una por una de arriba hacia abajo hasta el final del bloque de código. Si una instrucción es una llamada a otra función, la ejecución se pausa y se procede a ejecutar esa función. Una vez que todas las instrucciones de esa función han sido ejecutadas, el programa retoma su flujo de ejecución a partir del punto en el que se pausó.
+
+Este proceso se conoce como ejecución de código en una sola hebra (single-threaded execution), ya que todas las instrucciones se ejecutan en el mismo hilo de ejecución. Aunque esto puede ser eficiente para programas simples, puede resultar en problemas de rendimiento si se realizan operaciones costosas en términos de tiempo de procesamiento. Es por eso que JavaScript también soporta operaciones asincrónicas, que permiten que el programa continúe ejecutando otras tareas mientras espera que se completen las operaciones asincrónicas.
 
 ### Ejemplo Ejecución Sincrónica
 
-function suma(a, b) {
-  console.log("Sumando...");
-  return a + b;
-}
+     function suma(a, b) {
+     console.log("Sumando...");
+     return a + b;
+     }
 
-function resta(a, b) {
-  console.log("Restando...");
-  return a - b;
-}
+     function resta(a, b) {
+     console.log("Restando...");
+     return a - b;
+     }
 
-function multiplicacion(a, b) {
-  console.log("Multiplicando...");
-  return a * b;
-}
+     function multiplicacion(a, b) {
+     console.log("Multiplicando...");
+     return a * b;
+     }
 
-function ejecucionSincronica() {
-  const resultadoSuma = suma(2, 3);
-  const resultadoResta = resta(resultadoSuma, 1);
-  const resultadoMultiplicacion = multiplicacion(resultadoResta, 5);
-  console.log(`El resultado final es ${resultadoMultiplicacion}`);
-}
+     function ejecucionSincronica() {
+     const resultadoSuma = suma(2, 3);
+     const resultadoResta = resta(resultadoSuma, 1);
+     const resultadoMultiplicacion = multiplicacion(resultadoResta, 5);
+     console.log(`El resultado final es ${resultadoMultiplicacion}`);
+     }
 
-ejecucionSincronica();
+     ejecucionSincronica();
+
 En este ejemplo, tenemos tres funciones que realizan diferentes operaciones matemáticas: suma, resta y multiplicacion. Cada función imprime un mensaje en la consola para indicar que se está realizando la operación correspondiente.
 
 Luego, tenemos una función llamada ejecucionSincronica que llama a estas tres funciones y utiliza los resultados de una función como entrada para la siguiente. En este caso, estamos sumando 2 y 3, restando 1 al resultado de la suma y multiplicando el resultado de la resta por 5.
@@ -216,8 +224,11 @@ Al llamar a ejecucionSincronica, vemos que los mensajes de consola se imprimen e
 
 ## Comportamiento de una función:Bloqueante vs no-bloqueante
 
-Cuando alguna de las instrucciones dentro de una función intente acceder a un recurso que se encuentre fuera del programa (por ejemplo, enviar un mensaje por la red, o leer un archivo del disco) nos encontraremos con dos maneras distintas de hacerlo: en forma bloqueante, o en forma no-bloqueante (blocking o non-blocking).
+Cuando se está trabajando con funciones en JavaScript y se necesita acceder a recursos externos, como enviar un mensaje por la red o leer un archivo del disco, existen dos formas distintas de hacerlo: en forma bloqueante o en forma no bloqueante.
 
+La forma bloqueante implica que la ejecución de la función se detiene hasta que se complete la operación de acceso al recurso externo. Esto significa que el hilo de ejecución se bloquea y no puede realizar ninguna otra tarea hasta que la operación de acceso al recurso se complete.
+
+Por otro lado, la forma no bloqueante permite que la ejecución de la función continúe de forma inmediata sin esperar a que se complete la operación de acceso al recurso externo. En lugar de detener la ejecución de la función, se realiza una solicitud al recurso externo y se proporciona un manejador (callback) que se ejecutará cuando se complete la operación.
 ## Operaciones no-bloqueantes
 
 - En la mayoría de los casos, precisamos que el programa ejecute todas sus operaciones en forma secuencial, y sólo comenzar una instrucción luego de haber terminado la anterior.
