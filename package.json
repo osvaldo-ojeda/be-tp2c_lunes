@@ -2,8 +2,8 @@
   "name": "be-tp2c_lunes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "type": "module",
+  "main": "server.js",
   "scripts": {
     "start": "node .",
     "dev": "node --watch .",
@@ -12,7 +12,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "workspaces": [
-    "true"
-  ]
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.3.1"
+  }
 }
