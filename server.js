@@ -15,23 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 //middlewares de rutas
 app.use(routes);
 
-// ----------------
-// import bcrypt from "bcrypt";
 
-// // const salt= await bcrypt.genSalt()
-// // console.log("🚀 salt:", salt)
-// // // $2b$10$tRu1llUI3uczGu2yb8jbnu
-
-// const hash = await bcrypt.hash("12345",10);
-// console.log("🚀 ~ file: server.js:26 ~ hash:", hash)
-
-
-// const compare= await bcrypt.compare("12345",hash)
-// console.log("🚀 ~ file: server.js:29 ~ compare:", compare)
-// ----------------
 
 await connectionDb
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     app.listen(port, () => {
       console.log("server ok http://localhost:8080");
