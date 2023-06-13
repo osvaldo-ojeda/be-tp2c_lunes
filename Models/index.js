@@ -7,7 +7,7 @@ Role.hasMany(User, {
 });
 User.belongsTo(Role, {
   foreignKey: "roleId",
+  as: "role",
 });
-
 
 export { Category, User, Role };

@@ -5,14 +5,14 @@ class User extends Model {}
 
 User.init(
   {
-    userName: {
+    nombre: {
       type: DT.STRING,
       allowNull: false,
       validate: {
         len: [2, 50],
       },
     },
-    userLastName: {
+    apellido: {
       type: DT.STRING(50),
       allowNull: false,
     },
@@ -29,7 +29,8 @@ User.init(
       },
     },
     roleId:{
-      type:DT.INTEGER, 
+      type:DT.INTEGER,
+      defaultValue:2 
     }
   },
   {
